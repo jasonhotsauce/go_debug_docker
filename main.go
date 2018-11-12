@@ -4,12 +4,16 @@ import (
 	"fmt"
 
 	"github.com/go-redis/redis"
+	"github.com/spf13/viper"
 )
+
+const redisKey = "redis"
 
 // NewExampleClient creates a redis client and ping it to make sure it can talk to the server.
 func NewExampleClient() (*redis.Client, error) {
+	redisHost := viper.Get(redisKey)
 	client := redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
+		Addr:     fmt.Sprintf("%s:6379", redisHost),
 		Password: "",
 		DB:       0,
 	})
@@ -18,6 +22,8 @@ func NewExampleClient() (*redis.Client, error) {
 }
 
 func main() {
+	viper.SetEnvPrefix("demo")
+	viper.BindEnv(redisKey)
 	client, err := NewExampleClient()
 	if err != nil {
 		panic(err)
