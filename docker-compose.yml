@@ -1,8 +1,8 @@
 version: '2.1'
 
 services:
-  docker_go:
-    image: docker_go
+  demo:
+    image: demo
     build: 
       context: .
       dockerfile: Dockerfile
