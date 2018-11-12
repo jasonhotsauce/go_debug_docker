@@ -6,8 +6,6 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - "redis"
     ports:
       - 3000:3000
   redis:
