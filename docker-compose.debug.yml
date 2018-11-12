@@ -1,0 +1,20 @@
+version: '2.1'
+
+services:
+  docker_go:
+    image: docker_go
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    depends_on:
+      - "redis"
+    ports:
+        - "3000:3000"
+        - "2345:2345"
+    security_opt:
+        - "seccomp:unconfined"
+    command: /go/bin/dlv debug --headless --log --listen=:2345 --api-version=2
+    volumes:
+        - .:/go/src/app
+  redis:
+    image: redis

@@ -1,0 +1,14 @@
+version: '2.1'
+
+services:
+  docker_go:
+    image: docker_go
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - "redis"
+    ports:
+      - 3000:3000
+  redis:
+    image: redis

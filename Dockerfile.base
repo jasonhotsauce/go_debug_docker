@@ -1,0 +1,8 @@
+# Base stage
+FROM golang:alpine
+WORKDIR /go/src/app
+COPY . .
+RUN apk --update add --no-cache --virtual dependency git \
+    && go get -d -v ./... \
+    && apk del dependency
+EXPOSE 3000
